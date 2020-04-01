@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Zen</string>
+    <string name="title_home">Home</string>
+    <string name="title_stats">Stats</string>
+    <string name="title_more">More</string>
+
+    //DRAWABLE
+    <string name="button_ready">Meditate</string>
+    <string name="button_pause">pause</string>
+    <string name="button_finished">MORE ZEN</string>
+    <string name="timer">ZEN ACHIEVED</string>
+
+
+    //stats fragment
+    <string name="stats_title">Stats</string>
+    <string name="stats_header1">Total Meditation Time</string>
+    <string name="stats_header2">Daily Streak</string>
+    <string name="stats_header3">Inner Peace Found</string>
+
+
+    //peace activity
+    <string name="peace_msg">Way to go!</string>
+    <string name="peace_header">Current Streak</string>
+</resources>

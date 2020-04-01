@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00e575</color>
+    <color name="colorPrimaryDark">#263238</color>
+    <color name="colorSecondary">#00e575</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="transparent">#000000</color>
+    <color name="background">#ECEFF1</color>
+
+    //colors for Zen
+    <color name="colorRing">#29B6F6</color>
+    <color name="colorRingShadow">#D3D3D3</color>
+    <color name="finished">#FFC412</color>
+</resources>
