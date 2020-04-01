@@ -38,19 +38,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private static final String ZEN_PREF = "zen";
 
     //keys for preferences in Zen class
-    private final String KEY_TIMER = "time";
-    private final String KEY_FIRSTSETUP = "start";
-    private final String KEY_CLICKSTART = " oof";
-    private final String KEY_RUNNING = "run";
-    private final String KEY_TRACKER = "progress";
-    private final String KEY_DIFF = "diff";
-    private final String KEY_PAUSED = "pause";
-    public final String KEY_STREAK = "fire";
-
-    public static final String KEY_TOTALRECORD = "rec";
-    public static final String KEY_TOTALCOMP = "comp";
-
-
+    private final String KEY_TIMER = Preferences.KEY_MILLIS_LEFT;
+    private final String KEY_FIRSTSETUP = Preferences.KEY_FIRSTSETUP;
+    private final String KEY_CLICKSTART = Preferences.KEY_CLICKSTARTTIME;
+    private final String KEY_RUNNING = Preferences.KEY_RUNNING;
+    private final String KEY_TRACKER = Preferences.KEY_TRACKER;
+    private final String KEY_DIFF = Preferences.KEY_DIFF;
+    private final String KEY_PAUSED = Preferences.KEY_PAUSED;
+    private final String KEY_MOREZEN = Preferences.KEY_MOREZEN;
+    
+    private final String KEY_STREAK = Preferences.KEY_STREAK;
+    private static final String KEY_TOTALRECORD = Preferences.KEY_TOTALRECORD;
+    private static final String KEY_TOTALCOMP = Preferences.KEY_TOTALCOMP;
+            
     ///timer
     private TextView timer;
     public CountDownTimer countDown;
@@ -88,6 +88,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         //if the value is not -1, signifies there is a current timer running and millsLeft should be assigned to that stored value.
         boolean isRunning = Preferences.getBoolVal(getContext(), KEY_RUNNING);
         boolean firstStart = Preferences.getBoolVal(getContext(), KEY_FIRSTSETUP);
+        boolean moreZen = false;
 //
         if(!firstStart){
             millsLeft = TOTAL_RUNTIME;
@@ -127,7 +128,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         progress = (ProgressBar) view.findViewById(R.id.progressBar);
 
 
-
         //reupdate button view based on zenPrefs
         medBtn = (Button) view.findViewById(R.id.medBtn);
         if(isRunning && firstStart){
@@ -143,8 +143,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
         medBtn.setOnClickListener(this);
 
+        boolean isFinished = Preferences.getBoolVal(getContext(), KEY_MOREZEN);
         if(isRunning) {
             startTimer();
+        } else if (isFinished) {
+            finishView();
         } else {
             update();
         }
@@ -155,8 +158,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void resetView(){
-
+    private void finishView(){
+        medBtn.setText(R.string.button_finished);
+        medBtn.setBackground(getResources().getDrawable(R.drawable.timer_button2));
+        timer.setText(R.string.timer_finished);
+        timer.setTextColor(getResources().getColor(R.color.finished));
     }
 
     /**
@@ -167,6 +173,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v){
         //if button is clicked after countdown timer is finished
         //reset timer
+        boolean isFinished = Preferences.getBoolVal(getContext(), KEY_MOREZEN);
         if(isFinished){
             Preferences.setVal(getContext(), KEY_FIRSTSETUP, true);
             medBtn.setText(R.string.button_ready);
@@ -175,13 +182,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             progress.setProgress(0);
             tracker = 0;
             update();
-            isFinished = false;
+            Preferences.setVal(getContext(), KEY_MOREZEN, false);
         }else if (firstClick){
             progress.setProgress(0);
             medBtn.setText(R.string.button_pause);
             medBtn.setBackground(getResources().getDrawable(R.drawable.timer_button1));
             long startTime = System.currentTimeMillis();
-            Preferences.setVal(getContext(), KEY_CLICKSTART, startTime);
+            Preferences.setVal(getContext(),KEY_CLICKSTART, startTime);
             Preferences.setVal(getContext(), KEY_RUNNING, true);
             startTimer();
             firstClick=false;
@@ -212,9 +219,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         progress.setProgress(tracker);
         countDown =  new CountDownTimer(millsLeft, 1000){
             public void onTick(long millisTillFinished){
-              //  long allTimeRunTime = HomePreferences.getLongVal(getContext(), KEY_TOTALRECORD);
-               // allTimeRunTime = TOTAL_RUNTIME - millsLeft + allTimeRunTime;
-               // HomePreferences.setVal(getContext(), KEY_TOTALRECORD, allTimeRunTime);
                 Log.i("onTick", "reached");
                 tracker++;
                 Log.i("onTick", "Tracker: " + tracker);
@@ -244,6 +248,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         Preferences.setVal(getContext(), KEY_FIRSTSETUP, false);
         Preferences.setVal(getContext(), KEY_RUNNING, false);
         Preferences.setVal(getContext(), KEY_TOTALCOMP, record);
+        Preferences.setVal(getContext(), KEY_MOREZEN, true);
 
         progress.setProgress(0);
 

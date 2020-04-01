@@ -9,12 +9,29 @@ public class Preferences {
     private static String ZEN_PREF = "pref1";
 
 
+    //timer preferences needed for functionality
+    public static final String KEY_MILLIS_LEFT = "time";
+    public static final String KEY_FIRSTSETUP = "start";
+    public static final String KEY_CLICKSTARTTIME = " oof";
+    public static final String KEY_RUNNING = "run";
+    public static final String KEY_TRACKER = "progress";
+    public static final String KEY_DIFF = "diff";
+    public static final String KEY_PAUSED = "pause";
+    public static final String KEY_MOREZEN = "zenMe";
+
+
+    //stats key
+    public static final String KEY_STREAK = "fire";
+    public static final String KEY_TOTALRECORD = "rec";
+    public static final String KEY_TOTALCOMP = "comp";
+
+
+
     public Preferences(){
 
     }
 
     /**
-     * TODO// TRANSFER SHAREDPREFERENCES TO A GENERIC CLASS
      * @param context
      * @param key
      * @param value

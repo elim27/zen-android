@@ -13,6 +13,7 @@ public class PeaceActivity extends AppCompatActivity {
 
     }
     private ValueAnimator anim;
+   private static final int KEY_STREAK = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class PeaceActivity extends AppCompatActivity {
                 startActivity(mainIntent);
                 finish();
             }
-        }, 2000);
+        }, 2500);
     }
 
 

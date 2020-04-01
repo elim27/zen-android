@@ -19,8 +19,9 @@ import com.example.zen.Preferences;
 public class StatsFragment extends Fragment {
     private ValueAnimator anim;
     private StatsViewModel statsViewModel;
-    private final String KEY_TOTALRECORD = "rec";
-    private final String KEY_TOTALCOMP = "comp";
+    private final String KEY_TOTALRECORD = Preferences.KEY_TOTALRECORD;
+    private final String KEY_TOTALCOMP = Preferences.KEY_TOTALCOMP;
+    private final String KEY_STREAK = Preferences.KEY_STREAK;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class StatsFragment extends Fragment {
         startAnimateInt(count, value, "x");
 
         value = (TextView) view.findViewById(R.id.statsT_counter1);
-        totalMin = (int) Math.ceil(Preferences.getIntVal(getContext(), KEY_TOTALRECORD)/60);
+        totalMin = (int) Math.ceil(Preferences.getLongVal(getContext(), KEY_TOTALRECORD)/60);
         startAnimate(totalMin, value, "minute");
 //
 //        //determines current streak of self isolation
