@@ -1,14 +1,14 @@
-package com.example.zen.ui.more;
+package com.MADAPPS.zen.ui.more;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class MoreViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public NotificationsViewModel() {
+    public MoreViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is notifications fragment");
     }
