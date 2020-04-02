@@ -1,4 +1,4 @@
-package com.example.zen;
+package com.MADAPPS.zen;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -29,6 +29,10 @@ public class Preferences {
     //TimeCheckActivity Keys
     public static final String KEY_CURRDAY = "check";
     public static final String KEY_DAILYCOMP = "ye";
+
+    //More Fragment
+    public static final String KEY_TOTALTIME = "Totaltimeidiotmadek";
+    public static final String KEY_SELECTORPOS = "pos";
 
 
     public Preferences(){
