@@ -1,4 +1,4 @@
-package com.example.zen.ui.stats;
+package com.MADAPPS.zen.ui.stats;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.zen.R;
-import com.example.zen.Preferences;
+import com.MADAPPS.zen.R;
+import com.MADAPPS.zen.Preferences;
 
 public class StatsFragment extends Fragment {
     private ValueAnimator anim;
@@ -56,7 +56,7 @@ public class StatsFragment extends Fragment {
         startAnimateInt(count, value, "x");
 
         value = (TextView) view.findViewById(R.id.statsT_counter1);
-        totalMin = (int) Math.ceil(Preferences.getLongVal(getContext(), KEY_TOTALRECORD)/60000);
+        totalMin = (int) (Preferences.getLongVal(getContext(), KEY_TOTALRECORD)/60000);
         startAnimate(totalMin, value, "minute");
 
         //determines current streak of self isolation

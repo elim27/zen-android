@@ -1,4 +1,4 @@
-package com.example.zen.ui.stats;
+package com.MADAPPS.zen.ui.stats;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
