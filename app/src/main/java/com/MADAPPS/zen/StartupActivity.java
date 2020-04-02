@@ -1,4 +1,4 @@
-package com.example.zen;
+package com.MADAPPS.zen;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ public class StartupActivity extends AppCompatActivity {
 
     private static final String KEY_CURRDAY = Preferences.KEY_CURRDAY; //key where our currDate is stored
     private static final String KEY_DAILYCOMP = Preferences.KEY_DAILYCOMP;
+    private static final String KEY_STREAK = Preferences.KEY_STREAK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +48,10 @@ public class StartupActivity extends AppCompatActivity {
             if (test != curr) {
                 curr = test;
                 Preferences.setVal(getApplicationContext(), KEY_CURRDAY, curr);
-                Preferences.setVal(getApplicationContext(), Preferences.KEY_MILLIS_LEFT, (long) 10000);
-                if(!comp){
+                long total = Preferences.getLongVal(getApplicationContext(), Preferences.KEY_TOTALTIME);
+                Preferences.setVal(getApplicationContext(), Preferences.KEY_MILLIS_LEFT, total);
+
+                if(!comp && Preferences.getIntVal(getApplicationContext(), KEY_STREAK) != 0){
                     //DeadStreakActivity
                     Log.i("COMP FALSE", "REACHED");
                     Intent deadIntent = new Intent(getApplicationContext(), DeadStreakActivity.class);
