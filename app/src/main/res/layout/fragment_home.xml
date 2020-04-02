@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#ECEFF1"
+    android:background="@color/background"
     android:id="@+id/fragment_zen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,11 +20,28 @@
         android:autoSizeMinTextSize="12sp"
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
-        android:text="find your inner peace"
+        android:text="@string/home_title"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/zen_header"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:autoSizeMaxTextSize="40sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:text="@string/home_headerReady"
+        android:textAlignment="center"
+        android:textColor="@color/colorSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/zen_title" />
 
     <TextView
         android:id="@+id/zen_timer"
@@ -58,14 +75,14 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="400dp"
         android:max="100"
         android:progress="0"
         android:textColor="@color/text"
         android:progressDrawable="@drawable/progress_circle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zen_title" />
+        app:layout_constraintTop_toBottomOf="@+id/zen_header" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

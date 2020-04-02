@@ -17,8 +17,32 @@
     <string name="stats_header2">Daily Streak</string>
     <string name="stats_header3">Inner Peace Found</string>
 
+    //home fragment
+    <string name="home_title">Zen</string>
+    <string name="home_headerReady">find your inner peace</string>
+    <string name="home_headerFinish">daily peace found</string>
+
+    //more fragment
+    <string name="more_title">Quote of the Day</string>
+    <string name="more_header1">Selected Meditation Duration</string>
+
 
     //peace activity
     <string name="peace_msg">Way to go!</string>
     <string name="peace_header">Current Streak</string>
+
+
+    //dead activity
+    <string name="dead_msg">Oh no! Looks liked you missed a day!</string>
+    <string name="dead_header">Current Streak</string>
+
+
+
+
+
+    //Notifications
+    <string name="fcm_message"></string>
+    <string name="default_notification_channel_id">
+
+    </string>
 </resources>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00e575</color>
-    <color name="colorPrimaryDark">#00b147</color>
-    <color name="colorSecondary">#00e575</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#80c683</color>
+    <color name="colorPrimaryDark">#509556</color>
+    <color name="colorSecondary">#ffecb3</color>
+    <color name="colorAccent">#6B39C5</color>
     <color name="transparent">#000000</color>
-    <color name="background">#ECEFF1</color>
+    <color name="background">#FFFFFF</color>
     <color name="text">#455A64</color>
 
     //colors for Zen

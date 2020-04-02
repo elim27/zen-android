@@ -6,7 +6,7 @@
     android:id="@+id/fragment_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ECEFF1"
+    android:background="@color/background"
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
@@ -103,12 +103,14 @@
 
     <TextView
         android:id="@+id/statsT_header3"
-        android:layout_width="206dp"
+        android:layout_width="0dp"
         android:layout_height="29dp"
         android:autoSizeMaxTextSize="40sp"
         android:autoSizeMinTextSize="10sp"
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
+        app:layout_constraintWidth_percent="0.5"
+
         android:text="@string/stats_header3"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@id/space3"
@@ -118,7 +120,7 @@
 
     <TextView
         android:id="@+id/statsT_header2"
-        android:layout_width="206dp"
+        android:layout_width="0dp"
         android:layout_height="29dp"
         android:autoSizeMaxTextSize="40sp"
         android:autoSizeMinTextSize="10sp"
@@ -126,6 +128,7 @@
         android:autoSizeTextType="uniform"
         android:text="@string/stats_header2"
         android:textAlignment="center"
+        app:layout_constraintWidth_percent="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/statsT_header3"
         app:layout_constraintTop_toBottomOf="@+id/space2" />
@@ -138,20 +141,22 @@
 
     <TextView
         android:id="@+id/statsT_counter3"
-        android:layout_width="203dp"
+        android:layout_width="0dp"
         android:layout_height="92dp"
         android:autoSizeMaxTextSize="50sp"
         android:autoSizeMinTextSize="10sp"
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
         android:text="100"
+        app:layout_constraintWidth_percent="0.5"
+
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/space3" />
 
     <TextView
         android:id="@+id/statsT_counter2"
-        android:layout_width="203dp"
+        android:layout_width="0dp"
         android:layout_height="92dp"
         android:autoSizeMaxTextSize="50sp"
         android:autoSizeMinTextSize="10sp"
@@ -160,6 +165,7 @@
         android:text="100"
         android:textColor="@color/finished"
         android:textAlignment="center"
+        app:layout_constraintWidth_percent="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/space3"/>
     <Space

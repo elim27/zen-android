@@ -4,19 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.more.NotificationsFragment">
+    tools:context=".ui.more.MoreFragment">
 
     <TextView
-        android:id="@+id/text_notifications"
+        android:id="@+id/more_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:autoSizeMaxTextSize="75sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:text="@string/more_title"
         android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <Space
+        android:id="@+id/spaceM1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toBottomOf="@id/more_title" />
+
+    <TextView
+        android:id="@+id/more_header1"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:autoSizeMaxTextSize="75sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:text="@string/more_header1"
+        android:textAlignment="center"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintTop_toBottomOf="@id/spaceM1" />
+
+
+
+    <Spinner
+        android:id="@+id/more_spinner"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintTop_toBottomOf="@id/more_header1"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

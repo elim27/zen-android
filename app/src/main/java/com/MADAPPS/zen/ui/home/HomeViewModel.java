@@ -1,4 +1,4 @@
-package com.example.zen.ui.home;
+package com.MADAPPS.zen.ui.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

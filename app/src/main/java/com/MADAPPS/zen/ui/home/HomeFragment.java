@@ -1,7 +1,6 @@
-package com.example.zen.ui.home;
+package com.MADAPPS.zen.ui.home;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,9 +14,9 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.zen.Preferences;
-import com.example.zen.PeaceActivity;
-import com.example.zen.R;
+import com.MADAPPS.zen.Preferences;
+import com.MADAPPS.zen.PeaceActivity;
+import com.MADAPPS.zen.R;
 
 
 /**
@@ -44,18 +43,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private final String KEY_TOTALRECORD = Preferences.KEY_TOTALRECORD;
     private final String KEY_TOTALCOMP = Preferences.KEY_TOTALCOMP;
     private final String KEY_DAILYCOMP = Preferences.KEY_DAILYCOMP;
+    private String KEY_TOTALTIME = Preferences.KEY_TOTALTIME;
+    private String KEY_SELECTORPOS = Preferences.KEY_SELECTORPOS;
             
     ///timer
     private TextView timer;
+    private TextView title;
     public CountDownTimer countDown;
     private long millsLeft;
-    private final long TOTAL_RUNTIME = 10000;
+    private long TOTAL_RUNTIME;
     private ProgressBar progress;
     private int tracker;
 
     //class variables
     private Button medBtn;
-    private boolean firstClick;
+    private boolean isReady;
 
 
 
@@ -75,15 +77,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+    if(Preferences.getBoolVal(getContext(), KEY_MOREZEN)){
+
+    }
+       TOTAL_RUNTIME = Preferences.getLongVal(getContext(), KEY_TOTALTIME);
+
+        if(TOTAL_RUNTIME == 0){
+            TOTAL_RUNTIME = 5*60000;
+            Preferences.setVal(getContext(), KEY_TOTALTIME, TOTAL_RUNTIME);
+        }
+
         boolean daily = Preferences.getBoolVal(getContext(), KEY_DAILYCOMP);
         boolean isFinished = Preferences.getBoolVal(getContext(), KEY_MOREZEN);
         boolean isRunning = Preferences.getBoolVal(getContext(), KEY_RUNNING);
         boolean firstStart = Preferences.getBoolVal(getContext(), KEY_FIRSTSETUP);
+
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        final TextView textView = view.findViewById(R.id.zen_title);
+        final TextView textView = view.findViewById(R.id.zen_header);
 
         timer = (TextView) view.findViewById(R.id.zen_timer);
 
@@ -124,20 +138,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         }
         progress = (ProgressBar) view.findViewById(R.id.progressBar);
-
-
-        //reupdate button view based on zenPrefs
+        title = view.findViewById(R.id.zen_header);
         medBtn = (Button) view.findViewById(R.id.medBtn);
+
+
         if(isRunning && firstStart){
             medBtn.setText(R.string.button_pause);
             medBtn.setBackground(getResources().getDrawable(R.drawable.timer_button1));
         } else if (!isRunning && !firstStart && millsLeft != TOTAL_RUNTIME){
-            medBtn.setText("more zen");
+            medBtn.setText(R.string.button_finished);
         } else {
             medBtn.setText(R.string.button_ready);
             medBtn.setBackground(getResources().getDrawable(R.drawable.timer_button));
             progress.setProgressDrawable(getResources().getDrawable(R.drawable.progress_circle));
-            firstClick = true;
+            isReady = true;
         }
         medBtn.setOnClickListener(this);
 
@@ -147,6 +161,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             startTimer();
         } else if (isFinished && daily) {
             finishView();
+        } else if (!isFinished && daily){
+            update();
         } else {
             update();
         }
@@ -162,6 +178,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         medBtn.setBackground(getResources().getDrawable(R.drawable.timer_button2));
         timer.setText(R.string.timer_finished);
         timer.setTextColor(getResources().getColor(R.color.finished));
+        title.setText(R.string.home_headerFinish);
+        title.setTextColor(getResources().getColor(R.color.finished));
     }
 
     /**
@@ -172,10 +190,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v){
         //if button is clicked after countdown timer is finished
         //reset timer
-        boolean daily = Preferences.getBoolVal(getContext(), KEY_DAILYCOMP);
         boolean isFinished = Preferences.getBoolVal(getContext(), KEY_MOREZEN);
-        boolean isRunning = Preferences.getBoolVal(getContext(), KEY_RUNNING);
-        boolean firstStart = Preferences.getBoolVal(getContext(), KEY_FIRSTSETUP);
+
         if(isFinished){
             Preferences.setVal(getContext(), KEY_FIRSTSETUP, true);
             medBtn.setText(R.string.button_ready);
@@ -184,7 +200,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             tracker = 0;
             update();
             Preferences.setVal(getContext(), KEY_MOREZEN, false);
-        }else if (firstClick){
+
+        }else if (isReady){
             progress.setProgress(0);
             medBtn.setText(R.string.button_pause);
             medBtn.setBackground(getResources().getDrawable(R.drawable.timer_button1));
@@ -192,26 +209,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             Preferences.setVal(getContext(),KEY_CLICKSTART, startTime);
             Preferences.setVal(getContext(), KEY_RUNNING, true);
             startTimer();
-            firstClick=false;
+            isReady =false;
             //HomePreferences.setVal(getContext(), KEY_PAUSED, false);
         }  else {
             medBtn.setText(R.string.button_ready);
             medBtn.setBackground(getResources().getDrawable(R.drawable.timer_button));
             Preferences.setVal(getContext(), KEY_RUNNING, false);
             Preferences.setVal(getContext(), KEY_TRACKER, tracker);
+
             long clickStart = Preferences.getLongVal(getContext(), KEY_CLICKSTART);
             long diff = (Preferences.getLongVal(getContext(), KEY_DIFF));
+
             diff = System.currentTimeMillis() - clickStart + diff;
             Log.i("Diff", "Value: " + diff);
             long storeDiff = (long) diff;
             Preferences.setVal(getContext(), KEY_DIFF, storeDiff);
-            firstClick = true;
+            isReady = true;
             Preferences.setVal(getContext(), KEY_PAUSED, true);
             stopTimer();
 
         }
     }
-
 
     /**
      *Starts the timer
@@ -221,7 +239,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         countDown =  new CountDownTimer(millsLeft, 1000){
             public void onTick(long millisTillFinished){
                 long allTimeRunTime = Preferences.getLongVal(getContext(), KEY_TOTALRECORD);
-                allTimeRunTime = TOTAL_RUNTIME - millsLeft + allTimeRunTime;
+                allTimeRunTime = 1000 + allTimeRunTime;
                 Preferences.setVal(getContext(), KEY_TOTALRECORD, allTimeRunTime);
                 Log.i("onTick", "reached");
                 tracker++;
@@ -244,7 +262,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
      */
     private void finishTimer(){
         boolean daily = Preferences.getBoolVal(getContext(), KEY_DAILYCOMP);
-        firstClick = true;
+        isReady = true;
         millsLeft = TOTAL_RUNTIME;
         int record = Preferences.getIntVal(getContext(), KEY_TOTALCOMP) + 1;
         Preferences.setVal(getContext(), KEY_PAUSED, true);
@@ -284,14 +302,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         String currTimer;
         millsLeft = Preferences.getLongVal(getContext(), KEY_TIMER);
-        int min = (int) millsLeft / 60000;
+        int hour = (int) millsLeft / 36000000;
+        int min;
         int sec = (int) millsLeft % 60000 / 1000;
-        currTimer = min + ":";
 
-        if(sec < 10){
-            currTimer = currTimer + "0";
+        if(hour != 0){
+           min = (int) millsLeft / 600000;
+            currTimer = hour + ":" + min + ":" + sec;
+        } else {
+            min = (int) millsLeft / 60000;
+            currTimer = min + ":";
+            if (sec < 10) {
+                currTimer = currTimer + "0";
+            }
+            currTimer = currTimer + sec;
+
         }
-        currTimer = currTimer + sec;
         if(Preferences.getBoolVal(getContext(), KEY_RUNNING)) {
             tracker = Preferences.getIntVal(getContext(), KEY_TRACKER);
         }
@@ -302,10 +328,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             timer.setTextColor(getResources().getColor(R.color.finished));
         }
         timer.setText(currTimer);
-    }
-
-    private void checkStreak(){
-
     }
 
 
