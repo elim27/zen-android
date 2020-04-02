@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "451150934152",
+    "firebase_url": "https://zen-android-35eb6.firebaseio.com",
+    "project_id": "zen-android-35eb6",
+    "storage_bucket": "zen-android-35eb6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451150934152:android:119f272ac2767259956f3d",
+        "android_client_info": {
+          "package_name": "com.MADAPPS.zen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "451150934152-s8eompq055t3hb9nl1p6tmqm4bat7kr9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWDcLRLPz4DNxQTYTkIrtjaSAfUq0ECPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "451150934152-s8eompq055t3hb9nl1p6tmqm4bat7kr9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

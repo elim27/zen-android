@@ -1,4 +1,4 @@
-package com.example.zen;
+package com.MADAPPS.zen;
 
 import android.content.Context;
 
