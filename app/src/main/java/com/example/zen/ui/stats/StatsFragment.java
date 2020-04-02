@@ -56,14 +56,14 @@ public class StatsFragment extends Fragment {
         startAnimateInt(count, value, "x");
 
         value = (TextView) view.findViewById(R.id.statsT_counter1);
-        totalMin = (int) Math.ceil(Preferences.getLongVal(getContext(), KEY_TOTALRECORD)/60);
+        totalMin = (int) Math.ceil(Preferences.getLongVal(getContext(), KEY_TOTALRECORD)/60000);
         startAnimate(totalMin, value, "minute");
-//
-//        //determines current streak of self isolation
-//        count = DailyActivity.(getContext(), DailyActivity.getStreakKey());
-//
-//        value = (TextView) view.findViewById(R.id.text_homeStreak);
-//        startAnimate(count, value);
+
+        //determines current streak of self isolation
+        count = Preferences.getIntVal(getContext(), KEY_STREAK);
+
+        value = (TextView) view.findViewById(R.id.statsT_counter2);
+        startAnimate(count, value, "day");
 
     }
     /**
@@ -106,9 +106,9 @@ public class StatsFragment extends Fragment {
     private void startAnimate(int limit, final TextView text, String time){
         final String rightTime;
         if(limit != 1){
-            rightTime = time;
-        } else {
             rightTime = time+"s";
+        } else {
+            rightTime = time;
         }
         anim = ValueAnimator.ofInt(0, limit);
         anim.setDuration(1000);

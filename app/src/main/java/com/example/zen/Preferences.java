@@ -17,7 +17,7 @@ public class Preferences {
     public static final String KEY_TRACKER = "progress";
     public static final String KEY_DIFF = "diff";
     public static final String KEY_PAUSED = "pause";
-    public static final String KEY_MOREZEN = "zenMe";
+    public static final String KEY_MOREZEN = "yeet";
 
 
     //stats key
@@ -25,6 +25,10 @@ public class Preferences {
     public static final String KEY_TOTALRECORD = "rec";
     public static final String KEY_TOTALCOMP = "comp";
 
+
+    //TimeCheckActivity Keys
+    public static final String KEY_CURRDAY = "check";
+    public static final String KEY_DAILYCOMP = "ye";
 
 
     public Preferences(){
@@ -61,7 +65,7 @@ public class Preferences {
 
     public static long getLongVal(Context context, String key){
         zenPrefs =  context.getSharedPreferences(ZEN_PREF, Context.MODE_PRIVATE);
-        long ret =  zenPrefs.getLong(key, (long)0);
+        long ret =  zenPrefs.getLong(key, 0);
         Log.i("RETURN LONG", "VALUE: " + ret);
         return ret;
     }

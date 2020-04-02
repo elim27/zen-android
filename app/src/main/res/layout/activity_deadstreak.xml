@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/dead_streak"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="420 Days"
+        android:textAlignment="center"
+        android:textColor="@color/finished"
+        android:textSize="60dp"
+        android:layout_marginTop="200dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent
+">
+
+    </TextView>
+</androidx.constraintlayout.widget.ConstraintLayout>
