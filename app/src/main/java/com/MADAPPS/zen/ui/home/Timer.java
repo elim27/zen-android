@@ -12,8 +12,6 @@ public class Timer extends HomeFragment {
     private static Activity activity = HomeFragment.activity;
 
 
-
-
     /**
      *Starts the timer
      */

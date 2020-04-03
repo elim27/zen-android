@@ -16,7 +16,6 @@ public class StreakCheck extends AppCompatActivity {
     private static final String KEY_CURRDAY = Prefs.KEY_CURRDAY; //key where our currDate is stored
     private static final String KEY_DAILYCOMP = Prefs.KEY_DAILYCOMP;
     private static final String KEY_STREAK = Prefs.KEY_STREAK;
-                
 
     public StreakCheck()
     {

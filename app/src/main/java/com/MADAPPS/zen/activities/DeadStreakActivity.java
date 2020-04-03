@@ -1,4 +1,4 @@
-package com.MADAPPS.zen;
+package com.MADAPPS.zen.activities;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
@@ -9,9 +9,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.MADAPPS.zen.R;
+import com.MADAPPS.zen.Prefs;
+
 public class DeadStreakActivity extends AppCompatActivity {
     ValueAnimator anim;
-    private String KEY_STREAK = Preferences.KEY_STREAK;
+    private String KEY_STREAK = Prefs.KEY_STREAK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +24,8 @@ public class DeadStreakActivity extends AppCompatActivity {
         Log.i("DEADSTREAKACTIVITY", "REACHED");
 
         final TextView value = (TextView) findViewById(R.id.dead_streak);
-        final int streak = Preferences.getIntVal(getApplicationContext(), KEY_STREAK);
-        Preferences.setVal(getApplicationContext(), Preferences.KEY_STREAK, 0);
+        final int streak = Prefs.getIntVal(getApplicationContext(), KEY_STREAK);
+        Prefs.setVal(getApplicationContext(), Prefs.KEY_STREAK, 0);
 
         anim = ValueAnimator.ofInt(streak, 0);
         anim.setDuration(1000);

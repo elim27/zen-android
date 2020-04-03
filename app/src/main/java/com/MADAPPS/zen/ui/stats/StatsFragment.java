@@ -14,14 +14,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.MADAPPS.zen.R;
-import com.MADAPPS.zen.Preferences;
+import com.MADAPPS.zen.Prefs;
 
 public class StatsFragment extends Fragment {
     private ValueAnimator anim;
     private StatsViewModel statsViewModel;
-    private final String KEY_TOTALRECORD = Preferences.KEY_TOTALRECORD;
-    private final String KEY_TOTALCOMP = Preferences.KEY_TOTALCOMP;
-    private final String KEY_STREAK = Preferences.KEY_STREAK;
+    private final String KEY_TOTALRECORD = Prefs.KEY_TOTALRECORD;
+    private final String KEY_TOTALCOMP = Prefs.KEY_TOTALCOMP;
+    private final String KEY_STREAK = Prefs.KEY_STREAK;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,18 +49,18 @@ public class StatsFragment extends Fragment {
         int count;
         int totalMin;
 
-        count = Preferences.getIntVal(getContext(), KEY_TOTALCOMP);
+        count = Prefs.getIntVal(getActivity(), KEY_TOTALCOMP);
 
         //sets total days text view value
         TextView value = (TextView) view.findViewById(R.id.statsT_counter3);
         startAnimateInt(count, value, "x");
 
         value = (TextView) view.findViewById(R.id.statsT_counter1);
-        totalMin = (int) (Preferences.getLongVal(getContext(), KEY_TOTALRECORD)/60000);
+        totalMin = (int) (Prefs.getLongVal(getActivity(), KEY_TOTALRECORD)/60000);
         startAnimate(totalMin, value, "minute");
 
         //determines current streak of self isolation
-        count = Preferences.getIntVal(getContext(), KEY_STREAK);
+        count = Prefs.getIntVal(getActivity(), KEY_STREAK);
 
         value = (TextView) view.findViewById(R.id.statsT_counter2);
         startAnimate(count, value, "day");

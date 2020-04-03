@@ -1,7 +1,8 @@
-package com.MADAPPS.zen;
+package com.MADAPPS.zen.activities;
 
 import android.os.Bundle;
 
+import com.MADAPPS.zen.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
