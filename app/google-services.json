@@ -21,7 +21,7 @@
       ],
       "api_key": [
         {
-          "current_key": "your_api_key_goes_here"
+          "current_key": "api_key"
         }
       ],
       "services": {
