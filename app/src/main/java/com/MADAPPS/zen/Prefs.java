@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-public class Preferences {
+public class Prefs {
     private static SharedPreferences zenPrefs;
     private static String ZEN_PREF = "pref1";
 
@@ -12,12 +12,13 @@ public class Preferences {
     //timer preferences needed for functionality
     public static final String KEY_MILLIS_LEFT = "time";
     public static final String KEY_FIRSTSETUP = "start";
+
     public static final String KEY_CLICKSTARTTIME = " oof";
     public static final String KEY_RUNNING = "run";
     public static final String KEY_TRACKER = "progress";
-    public static final String KEY_DIFF = "diff";
-    public static final String KEY_PAUSED = "pause";
-    public static final String KEY_MOREZEN = "yeet";
+    public static final String KEY_STARTPAUSEDIFF = "diff";
+    public static final String KEY_HASPAUSED = "pause";
+    public static final String KEY_DONE = "yeet";
 
 
     //stats key
@@ -31,11 +32,11 @@ public class Preferences {
     public static final String KEY_DAILYCOMP = "ye";
 
     //More Fragment
-    public static final String KEY_TOTALTIME = "Totaltimeidiotmadek";
+    public static final String KEY_RUNTIME = "Totaltimeidiotmadek";
     public static final String KEY_SELECTORPOS = "pos";
 
 
-    public Preferences(){
+    public Prefs(){
 
     }
 

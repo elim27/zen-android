@@ -1,22 +1,19 @@
 package com.MADAPPS.zen.ui.home;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.MADAPPS.zen.Preferences;
-import com.MADAPPS.zen.PeaceActivity;
 import com.MADAPPS.zen.R;
+import com.MADAPPS.zen.Prefs;
 
 
 /**
@@ -29,36 +26,36 @@ import com.MADAPPS.zen.R;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment implements View.OnClickListener {
-
-    //keys for preferences in Zen class
-    private final String KEY_TIMER = Preferences.KEY_MILLIS_LEFT;
-    private final String KEY_FIRSTSETUP = Preferences.KEY_FIRSTSETUP;
-    private final String KEY_CLICKSTART = Preferences.KEY_CLICKSTARTTIME;
-    private final String KEY_RUNNING = Preferences.KEY_RUNNING;
-    private final String KEY_TRACKER = Preferences.KEY_TRACKER;
-    private final String KEY_DIFF = Preferences.KEY_DIFF;
-    private final String KEY_PAUSED = Preferences.KEY_PAUSED;
-    private final String KEY_MOREZEN = Preferences.KEY_MOREZEN;
-    private final String KEY_STREAK = Preferences.KEY_STREAK;
-    private final String KEY_TOTALRECORD = Preferences.KEY_TOTALRECORD;
-    private final String KEY_TOTALCOMP = Preferences.KEY_TOTALCOMP;
-    private final String KEY_DAILYCOMP = Preferences.KEY_DAILYCOMP;
-    private String KEY_TOTALTIME = Preferences.KEY_TOTALTIME;
-    private String KEY_SELECTORPOS = Preferences.KEY_SELECTORPOS;
-            
-    ///timer
-    private TextView timer;
-    private TextView title;
-    public CountDownTimer countDown;
-    private long millsLeft;
-    private long TOTAL_RUNTIME;
-    private ProgressBar progress;
-    private int tracker;
-
+    static Activity activity;
+    //keys for Preferences in Zen class
+    protected static final String KEY_TIMER = Prefs.KEY_MILLIS_LEFT;
+    protected static final String KEY_FIRSTSETUP = Prefs.KEY_FIRSTSETUP;
+    protected static final String KEY_CLICKSTART = Prefs.KEY_CLICKSTARTTIME;
+    protected static final String KEY_RUNNING = Prefs.KEY_RUNNING;
+    protected static final String KEY_TRACKER = Prefs.KEY_TRACKER;
+    protected static final String KEY_DIFF = Prefs.KEY_STARTPAUSEDIFF;
+    protected static final String KEY_PAUSED = Prefs.KEY_HASPAUSED;
+    protected static final String KEY_DONE = Prefs.KEY_DONE;
+    protected static final String KEY_STREAK = Prefs.KEY_STREAK;
+    protected static final String KEY_TOTALRECORD = Prefs.KEY_TOTALRECORD;
+    protected static final String KEY_DAILYCOMP = Prefs.KEY_DAILYCOMP;
+    protected static String KEY_TOTALTIME = Prefs.KEY_RUNTIME;
+    protected static final String KEY_TOTALCOMP = Prefs.KEY_TOTALCOMP;
+    //widgets
+    protected static Button homeBtn;
+    protected static TextView timer;
+    protected static TextView title;
+    protected static CountDownTimer countDown;
+    protected static ProgressBar progress;
     //class variables
-    private Button medBtn;
-    private boolean isReady;
-
+    protected static boolean isReady;
+    protected static boolean daily;
+    protected static boolean isFinished;
+    protected static boolean isRunning;
+    protected static boolean firstStart;
+    protected static long millsLeft;
+    protected static long TOTAL_RUNTIME;
+    protected static int tracker;
 
 
     public HomeFragment() {
@@ -67,247 +64,75 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onDestroyView(){
-        super.onDestroyView();
-        if(countDown != null) {
-            stopTimer();
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-    if(Preferences.getBoolVal(getContext(), KEY_MOREZEN)){
+        activity = this.getActivity();
+        assert activity != null;
 
-    }
-       TOTAL_RUNTIME = Preferences.getLongVal(getContext(), KEY_TOTALTIME);
+        daily = Prefs.getBoolVal(activity, KEY_DAILYCOMP);
+        isFinished = Prefs.getBoolVal(activity, KEY_DONE);
+        isRunning = Prefs.getBoolVal(activity, KEY_RUNNING);
+        firstStart = Prefs.getBoolVal(activity, KEY_FIRSTSETUP);
 
-        if(TOTAL_RUNTIME == 0){
-            TOTAL_RUNTIME = 5*60000;
-            Preferences.setVal(getContext(), KEY_TOTALTIME, TOTAL_RUNTIME);
-        }
-
-        boolean daily = Preferences.getBoolVal(getContext(), KEY_DAILYCOMP);
-        boolean isFinished = Preferences.getBoolVal(getContext(), KEY_MOREZEN);
-        boolean isRunning = Preferences.getBoolVal(getContext(), KEY_RUNNING);
-        boolean firstStart = Preferences.getBoolVal(getContext(), KEY_FIRSTSETUP);
+        //sets up runtime of timer
+        Timer.setRunTime();
+        TOTAL_RUNTIME = Prefs.getLongVal(activity, KEY_TOTALTIME);
 
         // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
         final TextView textView = view.findViewById(R.id.zen_header);
 
+        //assign static variables to corresponding widgets
         timer = (TextView) view.findViewById(R.id.zen_timer);
-
-//
-        if(!firstStart){
-            millsLeft = TOTAL_RUNTIME;
-            Preferences.setVal(getContext(), KEY_FIRSTSETUP, true);
-            Preferences.setVal(getContext(), KEY_TIMER, millsLeft);
-        }else {
-            millsLeft = Preferences.getLongVal(getContext(), KEY_TIMER);
-            tracker = Preferences.getIntVal(getContext(), KEY_TRACKER);
-            Log.i("millsLeft", "Value: " + millsLeft);
-            if(isRunning) {
-                long currTime = System.currentTimeMillis();
-                long clickStartTime = Preferences.getLongVal(getContext(), KEY_CLICKSTART);
-                long diff = (currTime - clickStartTime);
-                int holder = (int) diff;
-                tracker = holder/1000;
-                if(Preferences.getBoolVal(getContext(), KEY_PAUSED)) {
-                    diff = diff + Preferences.getLongVal(getContext(), KEY_DIFF);
-                    tracker =  (int) diff/1000;
-                }
-                // setMode(getContext(), "KEY_TRACKER", tracker);
-                millsLeft = TOTAL_RUNTIME - diff;
-                //we want to store the total amount of time elapsed between clicks (SEE ONCLICK PAUSE)
-              Preferences.setVal(getContext(), KEY_TIMER, millsLeft);
-              Preferences.setVal(getContext(), KEY_TRACKER, diff);
-
-
-
-                //update tracker
-                //tracker =
-                Log.i("currTime", "Value: " + currTime/1000);
-                Log.i("clickStartTime", "Value: " + clickStartTime/1000);
-                Log.i("millsLeftDifference", "Value: " + diff/1000);
-                Log.i("millsLeftRun", "Value: " + millsLeft);
-
-            }
-        }
         progress = (ProgressBar) view.findViewById(R.id.progressBar);
         title = view.findViewById(R.id.zen_header);
-        medBtn = (Button) view.findViewById(R.id.medBtn);
+        homeBtn = (Button) view.findViewById(R.id.medBtn);
+        homeBtn.setOnClickListener(this);
 
+        TimerViews.setUpHome();
 
-        if(isRunning && firstStart){
-            medBtn.setText(R.string.button_pause);
-            medBtn.setBackground(getResources().getDrawable(R.drawable.timer_button1));
-        } else if (!isRunning && !firstStart && millsLeft != TOTAL_RUNTIME){
-            medBtn.setText(R.string.button_finished);
-        } else {
-            medBtn.setText(R.string.button_ready);
-            medBtn.setBackground(getResources().getDrawable(R.drawable.timer_button));
-            progress.setProgressDrawable(getResources().getDrawable(R.drawable.progress_circle));
-            isReady = true;
-        }
-        medBtn.setOnClickListener(this);
-
-
-        //determines what view to seelct
-        if(isRunning) {
-            startTimer();
-        } else if (isFinished && daily) {
-            finishView();
-        } else if (!isFinished && daily){
-            update();
-        } else {
-            update();
-        }
         return view;
     }
 
-    private void calculateMillsLeft(){
-
-    }
-
-    private void finishView(){
-        medBtn.setText(R.string.button_finished);
-        medBtn.setBackground(getResources().getDrawable(R.drawable.timer_button2));
-        timer.setText(R.string.timer_finished);
-        timer.setTextColor(getResources().getColor(R.color.finished));
-        title.setText(R.string.home_headerFinish);
-        title.setTextColor(getResources().getColor(R.color.finished));
-    }
 
     /**
-     *Saves certain preferences based on click/click order
+     *Saves certain Preferences based on click/click order
      * @param v
      */
     @Override
     public void onClick(View v){
         //if button is clicked after countdown timer is finished
         //reset timer
-        boolean isFinished = Preferences.getBoolVal(getContext(), KEY_MOREZEN);
-
+        boolean isFinished = Prefs.getBoolVal(activity, KEY_DONE);
         if(isFinished){
-            Preferences.setVal(getContext(), KEY_FIRSTSETUP, true);
-            medBtn.setText(R.string.button_ready);
-            medBtn.setBackground(getResources().getDrawable(R.drawable.timer_button));
-            progress.setProgress(0);
-            tracker = 0;
-            update();
-            Preferences.setVal(getContext(), KEY_MOREZEN, false);
-
+           TimerViews.restartView();
         }else if (isReady){
-            progress.setProgress(0);
-            medBtn.setText(R.string.button_pause);
-            medBtn.setBackground(getResources().getDrawable(R.drawable.timer_button1));
-            long startTime = System.currentTimeMillis();
-            Preferences.setVal(getContext(),KEY_CLICKSTART, startTime);
-            Preferences.setVal(getContext(), KEY_RUNNING, true);
-            startTimer();
-            isReady =false;
-            //HomePreferences.setVal(getContext(), KEY_PAUSED, false);
+           TimerViews.pausedView();
         }  else {
-            medBtn.setText(R.string.button_ready);
-            medBtn.setBackground(getResources().getDrawable(R.drawable.timer_button));
-            Preferences.setVal(getContext(), KEY_RUNNING, false);
-            Preferences.setVal(getContext(), KEY_TRACKER, tracker);
-
-            long clickStart = Preferences.getLongVal(getContext(), KEY_CLICKSTART);
-            long diff = (Preferences.getLongVal(getContext(), KEY_DIFF));
-
-            diff = System.currentTimeMillis() - clickStart + diff;
-            Log.i("Diff", "Value: " + diff);
-            long storeDiff = (long) diff;
-            Preferences.setVal(getContext(), KEY_DIFF, storeDiff);
-            isReady = true;
-            Preferences.setVal(getContext(), KEY_PAUSED, true);
-            stopTimer();
-
-        }
-    }
-
-    /**
-     *Starts the timer
-     */
-    private void startTimer(){
-        progress.setProgress(tracker);
-        countDown =  new CountDownTimer(millsLeft, 1000){
-            public void onTick(long millisTillFinished){
-                long allTimeRunTime = Preferences.getLongVal(getContext(), KEY_TOTALRECORD);
-                allTimeRunTime = 1000 + allTimeRunTime;
-                Preferences.setVal(getContext(), KEY_TOTALRECORD, allTimeRunTime);
-                Log.i("onTick", "reached");
-                tracker++;
-                Log.i("onTick", "Tracker: " + tracker);
-                millsLeft = millisTillFinished;
-                Preferences.setVal(getContext(), KEY_TIMER, millsLeft);
-                Preferences.setVal(getContext(), KEY_TRACKER, tracker);
-                update();
-            }
-            //resets timer on finish
-            public void onFinish(){
-                finishTimer();
-            }
-        }.start();
-    }
-
-
-    /**
-     * The default finish view of the timer, called in onFinish()
-     */
-    private void finishTimer(){
-        boolean daily = Preferences.getBoolVal(getContext(), KEY_DAILYCOMP);
-        isReady = true;
-        millsLeft = TOTAL_RUNTIME;
-        int record = Preferences.getIntVal(getContext(), KEY_TOTALCOMP) + 1;
-        Preferences.setVal(getContext(), KEY_PAUSED, true);
-        Preferences.setVal(getContext(), KEY_TIMER, millsLeft);
-        Preferences.setVal(getContext(), KEY_DIFF,  (long) 0);
-        Preferences.setVal(getContext(), KEY_TRACKER, (int) 0);
-        Preferences.setVal(getContext(), KEY_FIRSTSETUP, false);
-        Preferences.setVal(getContext(), KEY_RUNNING, false);
-        Preferences.setVal(getContext(), KEY_TOTALCOMP, record);
-        Preferences.setVal(getContext(), KEY_MOREZEN, true);
-        progress.setProgress(0);
-
-        if(!daily) {
-            int streak = Preferences.getIntVal(getContext(), KEY_STREAK) + 1;
-            Preferences.setVal(getContext(), KEY_STREAK, streak);
-            Preferences.setVal(getContext(), KEY_DAILYCOMP, true);
-            Intent peaceAchievedIntent = new Intent(getContext(), PeaceActivity.class);
-            startActivity(peaceAchievedIntent);
-        } else {
-            finishView();
+            TimerViews.unpausedView();;
         }
 
-    }
-    /**
-     *Stops the timer
-     */
-    public void stopTimer(){
-        countDown.cancel();
     }
 
 
     /**
      * Updates timer text
      */
-    public void update(){
-        boolean daily = Preferences.getBoolVal(getContext(), KEY_DAILYCOMP);
-
+    public static void update(){
+        boolean daily = Prefs.getBoolVal(activity, KEY_DAILYCOMP);
+          TOTAL_RUNTIME = Prefs.getLongVal(activity, KEY_TOTALTIME);
         String currTimer;
-        millsLeft = Preferences.getLongVal(getContext(), KEY_TIMER);
+        millsLeft = Prefs.getLongVal(activity, KEY_TIMER);
         int hour = (int) millsLeft / 36000000;
         int min;
         int sec = (int) millsLeft % 60000 / 1000;
 
-        if(hour != 0){
-           min = (int) millsLeft / 600000;
+        if(millsLeft < 0){
+            currTimer = "0" + ":" + "00";
+        }
+        else if(hour != 0){
+            min = (int) millsLeft / 600000;
             currTimer = hour + ":" + min + ":" + sec;
         } else {
             min = (int) millsLeft / 60000;
@@ -318,14 +143,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             currTimer = currTimer + sec;
 
         }
-        if(Preferences.getBoolVal(getContext(), KEY_RUNNING)) {
-            tracker = Preferences.getIntVal(getContext(), KEY_TRACKER);
+        if(Prefs.getBoolVal(activity, KEY_RUNNING)) {
+            tracker = Prefs.getIntVal(activity, KEY_TRACKER);
         }
         long calcProgress = (tracker*100/(TOTAL_RUNTIME /1000));
         progress.setProgress((int) calcProgress);
 
         if(daily){
-            timer.setTextColor(getResources().getColor(R.color.finished));
+            timer.setTextColor(activity.getResources().getColor(R.color.finished));
         }
         timer.setText(currTimer);
     }
@@ -334,5 +159,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
 
-}
 
+
+
+
+
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+        if(countDown != null) {
+            Timer.stopTimer();
+        }
+    }
+
+
+
+
+
+}
