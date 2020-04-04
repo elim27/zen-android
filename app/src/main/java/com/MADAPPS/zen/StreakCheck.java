@@ -16,20 +16,23 @@ public class StreakCheck extends AppCompatActivity {
     private static final String KEY_CURRDAY = Prefs.KEY_CURRDAY; //key where our currDate is stored
     private static final String KEY_DAILYCOMP = Prefs.KEY_DAILYCOMP;
     private static final String KEY_STREAK = Prefs.KEY_STREAK;
+    private static Activity activity;
 
     public StreakCheck()
+
     {
+
     }
 
     /**
      *
      * @return true if main activity should be started, false indicated deadstreakactivity
      */
-    public static boolean checkDailyStreak(){
+    public static boolean checkDailyStreak(Activity theActivity){
+        activity = theActivity;
         int curr;
         Calendar calendar;
         TextView timer = StartupActivity.timer;
-        Activity activity = StartupActivity.activity;
         TimeZone t = TimeZone.getDefault();
 
         if (t == null) {

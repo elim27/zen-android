@@ -1,11 +1,14 @@
 package com.MADAPPS.zen.activities;
 
 import android.os.Bundle;
+import android.view.Window;
 
 import com.MADAPPS.zen.R;
+import com.MADAPPS.zen.StreakCheck;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -17,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar tool = findViewById(R.id.toolbar);
+        setSupportActionBar(tool);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -24,8 +29,10 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_home, R.id.navigation_stats, R.id.navigation_more)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+      NavigationUI.setupWithNavController(navView, navController);
+
+        StreakCheck.checkDailyStreak(this);
+
     }
 
 }

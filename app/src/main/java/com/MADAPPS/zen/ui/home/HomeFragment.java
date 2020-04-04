@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     protected static final String KEY_RUNNING = Prefs.KEY_RUNNING;
     protected static final String KEY_TRACKER = Prefs.KEY_TRACKER;
     protected static final String KEY_DIFF = Prefs.KEY_STARTPAUSEDIFF;
-    protected static final String KEY_PAUSED = Prefs.KEY_HASPAUSED;
+    protected static final String KEY_HASPAUSED = Prefs.KEY_HASPAUSED;
     protected static final String KEY_DONE = Prefs.KEY_DONE;
     protected static final String KEY_STREAK = Prefs.KEY_STREAK;
     protected static final String KEY_TOTALRECORD = Prefs.KEY_TOTALRECORD;
@@ -56,6 +57,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     protected static long millsLeft;
     protected static long TOTAL_RUNTIME;
     protected static int tracker;
+    protected static int threeStrikes;
 
 
     public HomeFragment() {
@@ -75,9 +77,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         isRunning = Prefs.getBoolVal(activity, KEY_RUNNING);
         firstStart = Prefs.getBoolVal(activity, KEY_FIRSTSETUP);
 
-        //sets up runtime of timer
-        Timer.setRunTime();
-        TOTAL_RUNTIME = Prefs.getLongVal(activity, KEY_TOTALTIME);
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -89,6 +88,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         title = view.findViewById(R.id.zen_header);
         homeBtn = (Button) view.findViewById(R.id.medBtn);
         homeBtn.setOnClickListener(this);
+
+
+        //sets up runtime of timer
+        Timer.setRunTime();
+        TOTAL_RUNTIME = Prefs.getLongVal(activity, KEY_TOTALTIME);
 
         TimerViews.setUpHome();
 
@@ -104,7 +108,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v){
         //if button is clicked after countdown timer is finished
         //reset timer
+
         boolean isFinished = Prefs.getBoolVal(activity, KEY_DONE);
+        Log.i("isFinished", "Value: " + isFinished);
         if(isFinished){
            TimerViews.restartView();
         }else if (isReady){
@@ -121,7 +127,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
      */
     public static void update(){
         boolean daily = Prefs.getBoolVal(activity, KEY_DAILYCOMP);
-          TOTAL_RUNTIME = Prefs.getLongVal(activity, KEY_TOTALTIME);
+        TOTAL_RUNTIME = Prefs.getLongVal(activity, KEY_TOTALTIME);
         String currTimer;
         millsLeft = Prefs.getLongVal(activity, KEY_TIMER);
         int hour = (int) millsLeft / 36000000;
@@ -130,6 +136,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         if(millsLeft < 0){
             currTimer = "0" + ":" + "00";
+            progress.setProgress(100);
         }
         else if(hour != 0){
             min = (int) millsLeft / 600000;

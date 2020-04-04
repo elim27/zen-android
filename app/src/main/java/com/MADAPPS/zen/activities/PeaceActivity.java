@@ -47,6 +47,7 @@ public class PeaceActivity extends AppCompatActivity {
                 Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
                 mainIntent.putExtra("ACTIVITY_YES", "y");
                 startActivity(mainIntent);
+                overridePendingTransition(0, R.anim.fade_out_short);
                 finish();
             }
         }, 2500);
