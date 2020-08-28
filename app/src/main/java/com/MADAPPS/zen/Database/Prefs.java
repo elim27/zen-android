@@ -1,4 +1,4 @@
-package com.MADAPPS.zen;
+package com.MADAPPS.zen.Database;
 
 import android.content.Context;
 import android.content.SharedPreferences;

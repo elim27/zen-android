@@ -1,4 +1,4 @@
-package com.MADAPPS.zen.activities;
+package com.MADAPPS.zen.activities.startup;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,20 +10,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.MADAPPS.zen.R;
-import com.MADAPPS.zen.Database.Prefs;
-import com.MADAPPS.zen.Database.StreakCheck;
 
-import java.util.Calendar;
+import com.MADAPPS.zen.helpers.BrandNewDay;
+import com.MADAPPS.zen.activities.MainActivity;
+
 
 public class StartupActivity extends AppCompatActivity {
-
-
-    private static int curr;
-    private static Calendar calendar;
-
-    private static final String KEY_CURRDAY = Prefs.KEY_CURRDAY; //key where our currDate is stored
-    private static final String KEY_DAILYCOMP = Prefs.KEY_DAILYCOMP;
-    private static final String KEY_STREAK = Prefs.KEY_STREAK;
 
     public static Activity activity;
     public static Context startContext;
@@ -38,12 +30,11 @@ public class StartupActivity extends AppCompatActivity {
         startContext = getApplicationContext();
         timer = (TextView) findViewById(R.id.zen_timer);
 
-
-        boolean check = StreakCheck.checkDailyStreak(this);
+        BrandNewDay checker = new BrandNewDay();
+        boolean check = checker.checkDailyStreak(this);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 if(check){
                     startMain();
                 } else {
@@ -52,7 +43,7 @@ public class StartupActivity extends AppCompatActivity {
 
                 finish();
             }
-        }, 1750);
+        }, 750);
 
 
     }
@@ -69,7 +60,7 @@ public class StartupActivity extends AppCompatActivity {
     private void startMain(){
         Intent mainIntent = new Intent(this, MainActivity.class);
         startActivity(mainIntent);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out_short);
+        overridePendingTransition(0, R.anim.fade_out_text);
         finish();
 
     }

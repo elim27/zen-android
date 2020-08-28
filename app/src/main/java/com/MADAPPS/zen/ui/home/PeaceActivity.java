@@ -1,33 +1,34 @@
-package com.MADAPPS.zen.activities;
+package com.MADAPPS.zen.ui.home;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.MADAPPS.zen.R;
-import com.MADAPPS.zen.Database.Prefs;
+import com.MADAPPS.zen.helpers.TimerPrefs;
+import com.MADAPPS.zen.activities.MainActivity;
 
-public class DeadStreakActivity extends AppCompatActivity {
-    ValueAnimator anim;
-    private String KEY_STREAK = Prefs.KEY_STREAK;
+public class PeaceActivity extends AppCompatActivity {
+    private ValueAnimator anim;
+    private  String KEY_STREAK = TimerPrefs.KEY_STREAK;
+
+    public PeaceActivity() {
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_deadstreak);
+        setContentView(R.layout.activity_peace);
 
-        Log.i("DEADSTREAKACTIVITY", "REACHED");
-
-        final TextView value = (TextView) findViewById(R.id.dead_streak);
-        final int streak = Prefs.getIntVal(getApplicationContext(), KEY_STREAK);
-        Prefs.setVal(getApplicationContext(), Prefs.KEY_STREAK, 0);
-
-        anim = ValueAnimator.ofInt(streak, 0);
+      //  final int streak = HomePreferences.getInt(getApplicationContext(), );
+       final TextView value = findViewById(R.id.peace_streak);
+        final int streak = TimerPrefs.getIntVal(getApplicationContext(), KEY_STREAK);
+        anim = ValueAnimator.ofInt(0, streak);
         anim.setDuration(1000);
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener(){
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -43,9 +44,10 @@ public class DeadStreakActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.i("DEAD STREAK", "REACHED");
                 Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+                mainIntent.putExtra("ACTIVITY_YES", "y");
                 startActivity(mainIntent);
+                overridePendingTransition(0, R.anim.fade_out_short);
                 finish();
             }
         }, 2500);
@@ -56,4 +58,5 @@ public class DeadStreakActivity extends AppCompatActivity {
     public void onBackPressed(){
 
     }
+
 }
