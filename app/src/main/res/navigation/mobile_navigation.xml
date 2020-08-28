@@ -15,7 +15,7 @@
         android:id="@+id/navigation_stats"
         android:name="com.MADAPPS.zen.ui.stats.StatsFragment"
         android:label="@string/title_stats"
-        tools:layout="@layout/fragment_stats" />
+        tools:layout="@layout/fragment_overview" />
 
     <fragment
         android:id="@+id/navigation_more"

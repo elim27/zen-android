@@ -6,7 +6,7 @@
             android:shape="ring"
             android:thickness="10dp"
             android:useLevel="true">
-            <solid android:color="@color/colorRing"/>
+            <solid android:color="@color/ring"/>
             <!--            <gradient-->
             <!--                android:startColor="#fb0000"-->
             <!--                android:endColor="#00FF00"-->

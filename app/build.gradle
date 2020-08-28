@@ -15,7 +15,13 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //ZenDataabse schema
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        }
     }
 
     buildTypes {
@@ -28,8 +34,11 @@ android {
 }
 
 
-
 dependencies {
+
+    def room_version = "2.2.5"
+    def lifecycle_version = "2.2.0"
+    def arch_version = "2.1.0"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //FIREBASE
@@ -39,7 +48,17 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:20.1.4'
 
 
+    //LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+    //view model
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    //cardview
     implementation 'com.android.support:cardview-v7:28.0.0'
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
+    //Room
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 
 
     //lottie
@@ -54,10 +73,14 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     //implementation 'androidx.work:work-runtime:2.1.0'
+
+
+    //for tablayout
+    implementation 'com.android.support:design:27.1.1'
+
+    //graph
+    implementation 'com.robinhood.spark:spark:1.2.0'
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
-
-
-

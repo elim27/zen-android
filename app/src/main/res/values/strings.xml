@@ -13,19 +13,33 @@
 
 
     //stats fragment
-    <string name="stats_title">Stats</string>
-    <string name="stats_header1">Lifetime Total</string>
+    <string name="stats_title">Your stats</string>
+    <string name="stats_header1">spent meditating</string>
     <string name="stats_header2">Daily Streak</string>
-    <string name="stats_header3">Inner Peace Found</string>
+    <string name="stats_header3">Zen Achieved</string>
+    <string name="stats_header4">Goals Beaten</string>
+    <string name="stats_header5">Miscellaneous</string>
 
     //home fragment
     <string name="home_title">Zen</string>
-    <string name="home_headerReady">find your inner peace</string>
+    <string name="home_headerReady">let us finish what we start</string>
     <string name="home_headerFinish">daily peace found</string>
 
     //more fragment
     <string name="more_title">Quote of the Day</string>
-    <string name="more_header1">Selected Meditation Duration</string>
+    <string name="more_header1">Duration</string>
+    <string name="more_header2">Ambiance</string>
+    <string name="more_header3">Goals</string>
+    <string name="more_header4">Journal</string>
+    <string name="more_button1">My Goals</string>
+    <string name="more_button2">Scribe!</string>
+
+    //analysis fragment
+    <string name="analy_title">Your progress</string>
+    <string name="analy_button1">3 Days</string>
+    <string name="analy_button2">7 Days</string>
+    <string name="analy_button3">1 Month</string>
+    <string name="analy_button4">1 Year</string>
 
 
     //peace activity
@@ -37,13 +51,16 @@
     <string name="dead_msg">Oh no! Looks liked you missed a day!</string>
     <string name="dead_header">Current Streak</string>
 
-
-
-
+    //start activity
+    <string name="start_msg">Welcome back</string>
 
     //Notifications
-    <string name="fcm_message"></string>
+    <string name="fcm_message">
+
+    </string>
     <string name="default_notification_channel_id">
 
     </string>
+
+
 </resources>

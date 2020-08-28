@@ -1,122 +1,64 @@
 package com.MADAPPS.zen.ui.stats;
 
-import android.animation.ValueAnimator;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
+
 
 import com.MADAPPS.zen.R;
-import com.MADAPPS.zen.Prefs;
+import com.google.android.material.tabs.TabLayout;
 
 public class StatsFragment extends Fragment {
-    private ValueAnimator anim;
+
     private StatsViewModel statsViewModel;
-    private final String KEY_TOTALRECORD = Prefs.KEY_TOTALRECORD;
-    private final String KEY_TOTALCOMP = Prefs.KEY_TOTALCOMP;
-    private final String KEY_STREAK = Prefs.KEY_STREAK;
+
+
+    //tab layout
+    private Toolbar toolbar;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
+
+
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        statsViewModel =
-                ViewModelProviders.of(this).get(StatsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_stats, container, false);
-        final TextView textView = root.findViewById(R.id.stats_title);
-        statsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
-        setUpHome(root);
-        return root;
+        View view = inflater.inflate(R.layout.tab_stats, container, false);
+        toolbar = view.findViewById(R.id.toolbarStats);
+        ((AppCompatActivity) this.getActivity()).setSupportActionBar(toolbar);
+
+        //sets up our view page adapter
+        viewPager = view.findViewById(R.id.viewpagerStats);
+        setViewPager(viewPager);
+
+        //sets up tab layout
+        tabLayout = view.findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_clipboard);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_trend);
+
+        return view;
+    }
+
+    private void setViewPager(ViewPager viewPager){
+        OverviewFragment overviewFragment = new OverviewFragment();
+        AnalysisFragment analysFragment = new AnalysisFragment();
+
+        ViewPageAdapter adapter = new ViewPageAdapter(getChildFragmentManager(), 0);
+        adapter.addFragment(overviewFragment, "Overview");
+        adapter.addFragment(analysFragment, "Analysis");
+        viewPager.setAdapter(adapter);
+
     }
 
 
-    /**
-     * Sets up home page
-     * @param view
-     */
-    private void setUpHome(View view) {
-        int count;
-        int totalMin;
-
-        count = Prefs.getIntVal(getActivity(), KEY_TOTALCOMP);
-
-        //sets total days text view value
-        TextView value = (TextView) view.findViewById(R.id.statsT_counter3);
-        startAnimateInt(count, value, "x");
-
-        value = (TextView) view.findViewById(R.id.statsT_counter1);
-        totalMin = (int) (Prefs.getLongVal(getActivity(), KEY_TOTALRECORD)/60000);
-        startAnimate(totalMin, value, "minute");
-
-        //determines current streak of self isolation
-        count = Prefs.getIntVal(getActivity(), KEY_STREAK);
-
-        value = (TextView) view.findViewById(R.id.statsT_counter2);
-        startAnimate(count, value, "day");
-
-    }
-    /**
-     * This animates a specified TextView (num counting)
-     */
-    private void startAnimateInt(int limit, final TextView text, final String symbol){
-        anim = ValueAnimator.ofInt(0, limit);
-        anim.setDuration(1000);
-        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener(){
-            public void onAnimationUpdate(ValueAnimator animation) {
-
-                text.setText(animation.getAnimatedValue().toString() + symbol);
-            }
-        });
-        anim.start();
-    }
-
-    /**
-     * This animates a specified TextView (num counting)
-     */
-    private void startAnimateDouble(int limit, final TextView text){
-        anim = ValueAnimator.ofInt(0, limit);
-        anim.setDuration(1000);
-        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener(){
-            public void onAnimationUpdate(ValueAnimator animation) {
-
-                text.setText(animation.getAnimatedValue().toString() + "x");
-            }
-        });
-        anim.start();
-    }
-
-
-
-    /**
-     * This animates a specified TextView but also appends the word "day(s)"
-     * @param limit
-     * @param text
-     */
-    private void startAnimate(int limit, final TextView text, String time){
-        final String rightTime;
-        if(limit != 1){
-            rightTime = time+"s";
-        } else {
-            rightTime = time;
-        }
-        anim = ValueAnimator.ofInt(0, limit);
-        anim.setDuration(1000);
-        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener(){
-            public void onAnimationUpdate(ValueAnimator animation) {
-                text.setText(animation.getAnimatedValue().toString() + " " + rightTime);
-            }
-        });
-        anim.start();
-    }
 }

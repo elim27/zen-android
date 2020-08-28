@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    //first spinner
     <string-array
         name="spinner_choices">
         <item>5 Minutes</item>
@@ -9,5 +11,14 @@
         <item>30 Minutes</item>
         <item>45 Minutes</item>
         <item>1 Hour </item>
+    </string-array>
+
+    //second spinner
+    <string-array
+        name="music_choices">
+        <item>Silence</item>
+        <item>Rain</item>
+        <item>Beach</item>
+        <item>Rainforest</item>
     </string-array>
 </resources>

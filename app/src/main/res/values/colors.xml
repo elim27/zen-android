@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#80c683</color>
-    <color name="colorPrimaryDark">#509556</color>
-    <color name="colorSecondary">#ffecb3</color>
-    <color name="colorAccent">#6B39C5</color>
-    <color name="transparent">#000000</color>
+    <color name="colorPrimary">#66bb6a</color>
+    <color name="colorPrimaryDark">#338a3e</color>
+    <color name="colorPrimaryLight">#76d275</color>
+    <color name="colorSecondary">#745C7A</color>
+    <color name="colorAccent">#BA8BC7</color>
     <color name="background">#FFFFFF</color>
-    <color name="text">#455A64</color>
+<!--    <color name="bg_nav">#c4bcaa</color>-->
+
+
+    <color name = "bg_nav">#FFFFFF</color>
+
+    <color name ="statusBar">#cfd8dc</color>
+
+
+
+    <color name="text_main">#455A64</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_gray">#90a4ae</color>
+
+
+    <color name="goals">#ffca28</color>
+
+
 
     //colors for Zen
-    <color name="colorRing">#29B6F6</color>
+    <color name="ring">#80e27e</color>
     <color name="colorRingShadow">#D3D3D3</color>
-    <color name="finished">#FFC412</color>
+    <color name="finished">#A195C7</color>
+    <color name="moreBackground">#CFD8DC</color>
 </resources>

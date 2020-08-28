@@ -1,51 +1,216 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.more.MoreFragment">
+    tools:context=".ui.more.MoreFragment"
+    android:background="@drawable/bg_more"
+    android:orientation="vertical"
+    android:theme="@style/moreTheme">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <TextView
         android:id="@+id/more_title"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
+        android:text="Quote of the day"
+        android:padding="12dp"
+        android:textSize="30sp"
+        android:textAlignment="textStart"
+        android:layout_marginLeft="10dp">
+
+    </TextView>
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:layout_columnWeight="1"
+    android:layout_rowWeight="1"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="5dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginLeft="24dp"
+    android:layout_marginRight="24dp"
+    android:layout_marginBottom="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/quote"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="80sp"
+            app:autoSizeStepGranularity="2sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/more_title"
+            android:textAlignment="textStart">
+
+        </TextView>
+
+        <TextView
+        android:id="@+id/quote_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:autoSizeMaxTextSize="75sp"
-        android:autoSizeMinTextSize="12sp"
-        android:autoSizeStepGranularity="2sp"
-        android:autoSizeTextType="uniform"
+            android:layout_marginTop="10dp"
+        android:textSize="24sp"
         android:text="@string/more_title"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAlignment="textEnd"
+        app:layout_constraintTop_toTopOf="@id/quote" >
+
+    </TextView>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+    </LinearLayout>
     <Space
-        android:id="@+id/spaceM1"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:layout_constraintTop_toBottomOf="@id/more_title" />
+        android:layout_height="30dp">
 
-    <TextView
-        android:id="@+id/more_header1"
+    </Space>
+
+<GridLayout
+    android:id="@+id/grid_more"
+    android:layout_width="match_parent"
+    android:rowCount="2"
+    android:columnCount="2"
+    android:layout_height="match_parent"
+    android:alignmentMode="alignMargins"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:columnOrderPreserved="false">
+
+    <androidx.cardview.widget.CardView
+    android:id="@+id/cardView1_more"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_columnWeight="1"
+    android:layout_rowWeight="1"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="5dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="16dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@drawable/bg_card1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+      x
+            <TextView
+                android:id="@+id/more_header1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/more_header1"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textColor="@color/text_white"
+                app:layout_constraintWidth_percent="0.5" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/timer"
+                    android:padding="10dp"
+                    android:layout_alignParentRight="true"
+                    android:tint="@color/text_white"/>
+
+            </RelativeLayout>
+
+            <Spinner
+                android:id="@+id/more_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
+                android:popupBackground="@color/bg_nav" />
+
+        </LinearLayout>
+</androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2_more"
         android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:autoSizeMaxTextSize="75sp"
-        android:autoSizeMinTextSize="12sp"
-        android:autoSizeStepGranularity="2sp"
-        android:autoSizeTextType="uniform"
-        android:text="@string/more_header1"
-        android:textAlignment="center"
-        app:layout_constraintWidth_percent="0.5"
-        app:layout_constraintTop_toBottomOf="@id/spaceM1" />
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="5dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@drawable/bg_card1"
+            android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/more_header2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="12dp"
+                android:text="@string/more_header2"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textColor="@color/text_white"
+                 />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sound"
+                android:padding="12dp"
+                android:layout_alignParentRight="true"
+                android:tint="@color/text_white"/>
+
+        </RelativeLayout>
+            <Spinner
+                android:id="@+id/more_spinner2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
+                android:popupBackground="@color/bg_nav" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 
 
-    <Spinner
-        android:id="@+id/more_spinner"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        app:layout_constraintWidth_percent="0.5"
-        app:layout_constraintTop_toBottomOf="@id/more_header1"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</GridLayout>
+
+
+
+</LinearLayout>
