@@ -10,20 +10,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.MADAPPS.zen.R;
-import com.MADAPPS.zen.Database.Prefs;
 import com.MADAPPS.zen.Database.StreakCheck;
 
-import java.util.Calendar;
 
 public class StartupActivity extends AppCompatActivity {
-
-
-    private static int curr;
-    private static Calendar calendar;
-
-    private static final String KEY_CURRDAY = Prefs.KEY_CURRDAY; //key where our currDate is stored
-    private static final String KEY_DAILYCOMP = Prefs.KEY_DAILYCOMP;
-    private static final String KEY_STREAK = Prefs.KEY_STREAK;
 
     public static Activity activity;
     public static Context startContext;

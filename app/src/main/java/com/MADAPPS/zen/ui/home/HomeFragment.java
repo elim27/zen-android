@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         runtime = TimerPrefs.getLongVal(activity, KEY_TOTAL_TIME); //must get run time from shared preferences in case user changes duration in MoreFragment
 
         if (runtime == 0) {
-            runtime = 10000 * 5;
+            runtime = 60000 * 5;
             TimerPrefs.setVal(activity, KEY_TOTAL_TIME, runtime);
         }
         Log.i("onCreateView", "runtime: " + runtime);
@@ -98,11 +98,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
-
+    /**
+     * Chooses what to do when user click's on button. (If paused, will start counter, if running, will stop)
+     * @param v the view
+     */
     @Override
     public void onClick(View v) {
         if(isFinished){
-            //TimerViews.restartView();
+
             isFinished = false;
             isReady = true;
             millsLeft = runtime;
@@ -181,16 +184,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
     /**
-     * //     * Stops timer
-     * //
+     * Stops timer
      */
     public static void stopTimer() {
         countDown.cancel();
     }
 
-
+    /**
+     * Starts timer
+     */
     void startTimer() {
         countDown = new CountDownTimer(millsLeft, 1000) {
+            /**
+             * Execute appropriate tasks like updating timer and "all time record"
+             * every tick.
+             * @param millisTillFinished milliseconds left till completion
+             */
             public void onTick(long millisTillFinished) {
                 //updates all time record
                 long addMe = TimerPrefs.getLongVal(activity, KEY_MILLIS_ALL_TIME);
@@ -205,7 +214,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
                 millsLeft = millisTillFinished;
                 TimerPrefs.setVal(activity, KEY_MILLIS_LEFT, millsLeft);
-                update();
+                update(); //updates timer
             }
 
             //resets timer on finish
@@ -222,12 +231,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public static void update() {
         runtime = TimerPrefs.getLongVal(activity, KEY_TOTAL_TIME);
         String currTimer;
-        //   millsLeft = TimerPrefs.getLongVal(activity, KEY_MILLIS_LEFT);
 
         Log.i("runtime", "" + runtime);
 
         long newCalcProgress = ((((runtime-millsLeft)/1000)/(runtime/1000)))*100;
-        progress.setProgress((int) newCalcProgress);
 
         int hour = (int) millsLeft / 36000000;
         int min;
@@ -235,7 +242,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         if (millsLeft <= 0) {
             currTimer = "00" + ":" + "00";
-            progress.setProgress(100);
         } else {
             min = (int) millsLeft / 60000;
             currTimer = min + ":";
@@ -251,7 +257,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         timer.setText(currTimer);
     }
 
-
+    /**
+     * Animates counter text
+     */
     protected static void startTextAnim() {
         Animation animator1 = AnimationUtils.loadAnimation(activity, R.anim.fade_out_text);
         Animation animator2 = AnimationUtils.loadAnimation(activity, R.anim.fade_in);
@@ -273,9 +281,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
-
+    /**
+     * Resets timer and resets streak
+     */
     private void finishTimer() {
-        progress.setProgress(0);
         isInitialized = false;
         isFinished = true;
         hasPaused = false;
@@ -287,9 +296,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         TimerPrefs.setVal(activity, KEY_MILLIS_LEFT, runtime);
         tracker = 0;
-
-        // Prefs.setVal(activity, KEY_TOTALCOMP, record);
-//        Prefs.setVal(activity, KEY_DONE, true);
 
         updateButtons();
         //checks if daily task has been completed

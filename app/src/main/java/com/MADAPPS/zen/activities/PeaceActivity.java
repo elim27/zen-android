@@ -25,7 +25,6 @@ public class PeaceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_peace);
 
-      //  final int streak = HomePreferences.getInt(getApplicationContext(), );
        final TextView value = (TextView) findViewById(R.id.peace_streak);
         final int streak = Prefs.getIntVal(getApplicationContext(), KEY_STREAK);
         anim = ValueAnimator.ofInt(0, streak);

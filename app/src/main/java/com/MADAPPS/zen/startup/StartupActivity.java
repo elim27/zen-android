@@ -1,4 +1,4 @@
-package com.MADAPPS.zen.activities.startup;
+package com.MADAPPS.zen.startup;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,12 +1,10 @@
-package com.MADAPPS.zen.activities.startup;
+package com.MADAPPS.zen.startup;
 
 import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.MADAPPS.zen.Database.Day;
 import com.MADAPPS.zen.Database.Repository;

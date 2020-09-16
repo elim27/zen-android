@@ -12,10 +12,15 @@ import com.MADAPPS.zen.R;
 import com.MADAPPS.zen.helpers.TimerPrefs;
 import com.MADAPPS.zen.activities.MainActivity;
 
+/**
+ * This class is responsible for displaying a congratulations message to users after they achieve a
+ * full meditation session.
+ */
 public class PeaceActivity extends AppCompatActivity {
     private ValueAnimator anim;
     private  String KEY_STREAK = TimerPrefs.KEY_STREAK;
 
+    //constructor
     public PeaceActivity() {
     }
 
@@ -25,12 +30,18 @@ public class PeaceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_peace);
 
-      //  final int streak = HomePreferences.getInt(getApplicationContext(), );
        final TextView value = findViewById(R.id.peace_streak);
         final int streak = TimerPrefs.getIntVal(getApplicationContext(), KEY_STREAK);
         anim = ValueAnimator.ofInt(0, streak);
         anim.setDuration(1000);
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener(){
+
+
+            /**
+             * Animates the number of days
+             *
+             * @param animation ValueAnimator object
+             */
             public void onAnimationUpdate(ValueAnimator animation) {
                 String day = "day";
                 if(streak != 1){

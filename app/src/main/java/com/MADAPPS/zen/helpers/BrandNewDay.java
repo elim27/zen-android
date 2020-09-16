@@ -7,10 +7,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.MADAPPS.zen.Database.Day;
-import com.MADAPPS.zen.activities.startup.DayModel;
-import com.MADAPPS.zen.activities.startup.StartupActivity;
-import com.MADAPPS.zen.helpers.Prefs;
-import com.MADAPPS.zen.helpers.TimerPrefs;
+import com.MADAPPS.zen.startup.DayModel;
+import com.MADAPPS.zen.startup.StartupActivity;
 
 import java.util.Calendar;
 import java.util.TimeZone;

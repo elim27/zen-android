@@ -24,8 +24,7 @@ public class OverviewFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        statsViewModel =
-//                ViewModelProviders.of(this).get(StatsViewModel.class);
+
         View view = inflater.inflate(R.layout.fragment_overview, container, false);
         Activity activity = this.getActivity();
         allTime = TimerPrefs.getLongVal(activity, TimerPrefs.KEY_MILLIS_ALL_TIME);

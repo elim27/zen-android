@@ -1,4 +1,4 @@
-package com.MADAPPS.zen.activities.startup;
+package com.MADAPPS.zen.startup;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;

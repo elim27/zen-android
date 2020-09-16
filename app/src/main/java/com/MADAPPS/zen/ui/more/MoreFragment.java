@@ -1,12 +1,10 @@
 package com.MADAPPS.zen.ui.more;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -37,9 +35,6 @@ public class MoreFragment extends Fragment  {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        moreViewModel =
-//                ViewModelProviders.of(this).get(MoreViewModel.class);
-
 
         View view = inflater.inflate(R.layout.fragment_more, container, false);
 
@@ -49,9 +44,7 @@ public class MoreFragment extends Fragment  {
 
         //sets up quotes if the day is different
         CurrDate check = new CurrDate();
-        int theDay = check.getDate();
 
-//        if(theDay != Prefs.getIntVal(moreActivity, Prefs.KEY_CURRDAY)) {
             QuoteSelector setUpper = new QuoteSelector();
             setUpper.setUpQuotes();
             String theQuote = setUpper.getQuote();
@@ -59,7 +52,6 @@ public class MoreFragment extends Fragment  {
 
             quote.setText(theQuote);
             author.setText(theAuthor);
-//        }
 
 
         //first spinner

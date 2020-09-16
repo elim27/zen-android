@@ -35,8 +35,7 @@ public class AnalysisFragment extends Fragment implements View.OnClickListener {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        statsViewModel =
-//                ViewModelProviders.of(this).get(StatsViewModel.class);
+
         View view = inflater.inflate(R.layout.fragment_analysis, container, false);
         dayViewModel = ViewModelProviders.of(this.getActivity()).get(DayViewModel.class);
 

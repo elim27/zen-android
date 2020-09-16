@@ -16,6 +16,9 @@ public class TotalTimeSelector extends MoreFragment implements AdapterView.OnIte
         private static final String KEY_MILLIS_LEFT = TimerPrefs.KEY_MILLIS_LEFT;
 
 
+    /**
+     * Constructor
+      */
     public TotalTimeSelector(){
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(moreActivity,
                 R.array.spinner_choices, android.R.layout.simple_spinner_item);
@@ -37,7 +40,11 @@ public class TotalTimeSelector extends MoreFragment implements AdapterView.OnIte
 
     }
 
-
+    /***
+     *
+     * Determines what to do when user selects certain item on spinner.
+     *
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (parent.getId() == R.id.more_spinner) {
@@ -53,6 +60,9 @@ public class TotalTimeSelector extends MoreFragment implements AdapterView.OnIte
 
     }
 
+    /**
+     * Determines what to do when nothing is selected
+     */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         long total = TimerPrefs.getLongVal(moreActivity, KEY_TOTAL_TIME);
@@ -61,9 +71,7 @@ public class TotalTimeSelector extends MoreFragment implements AdapterView.OnIte
     /**
      * Determines what value to be stored based on user selection
      *
-     * @param parent
-     * @param position
-     * @return
+     *
      */
     private long determineStoreVal(AdapterView<?> parent, int position) {
         String[] placeHolder = new String[3];
