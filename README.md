@@ -1,6 +1,6 @@
 # zen-android
 
-Zen is an Android meditation app I made for fun.
+Zen is an Android meditation app I made for fun :)
 
 Zen allows users to improve their mental wellness by keeping track of how much time user's
 spend meditating and also how many times they complete a full meditation session (as the 
