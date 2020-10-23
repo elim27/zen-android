@@ -9,5 +9,6 @@ users to come back every day by building a daily streak based on if the user com
 session each day. 
 
 Source file path: app/src/main/java/com/MADAPPS/zen/
+Drawable resources created by myself in AdobeXD
 
 NOTE: For testing purposes, minutes are seconds (i.e. 5 min = 5 sec) and days are minutes (1 day = 1 min).
